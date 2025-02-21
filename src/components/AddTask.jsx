@@ -17,6 +17,11 @@ const AddTask = () => {
       alert("Title is required!");
       return;
     }
+    // validate description
+    if (description.length > 200) {
+        alert("Description cannot be longer than 200 characters!");
+        return;
+      }
 
     // Create a new task object
     const newTask = {
@@ -79,7 +84,7 @@ const AddTask = () => {
           <label className="block font-medium">Description:</label>
           <textarea
             className="w-full p-2 border rounded"
-            maxLength="200"
+           
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Enter task description (optional)"
