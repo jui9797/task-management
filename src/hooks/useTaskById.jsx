@@ -8,7 +8,7 @@ import useAxiosPublic from './useAxiosPublic';
 const useTaskById = (id) => {
 
  const axiosPublic = useAxiosPublic()
- const {data: task = {},  refetch} =useQuery({
+ const {data: task = {}, isPending:loading,  refetch} =useQuery({
     queryKey:['task', id],
     queryFn: async() =>{
         
@@ -18,7 +18,7 @@ const useTaskById = (id) => {
    
  })
 
- return [task, refetch]
+ return [task,loading, refetch]
     
 };
 

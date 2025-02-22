@@ -109,21 +109,7 @@ const AddTask = () => {
         </button>
       </form>
 
-      {/* Task List */}
-      {/* <h3 className="text-xl font-semibold mb-2">Task List</h3>
-      {tasks.length === 0 ? (
-        <p className="text-gray-500">No tasks added yet.</p>
-      ) : (
-        <ul className="space-y-2">
-          {tasks.map((task) => (
-            <li key={task.id} className="p-3 bg-gray-100 rounded">
-              <p><strong>{task.title}</strong> - {task.category}</p>
-              <p className="text-sm text-gray-500">{task.description}</p>
-              <p className="text-xs text-gray-400">Created: {new Date(task.timestamp).toLocaleString()}</p>
-            </li>
-          ))}
-        </ul>
-      )} */}
+      
     </div>
   );
 };
