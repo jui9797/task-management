@@ -190,8 +190,9 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <h3 className="text-xl font-bold mb-8 text-center dark:text-white my-6 lg:text-3xl">Task List</h3>
-      <section className="my-10 lg:my-28 p-4 bg-fuchsia-200 dark:bg-gray-900 dark:text-white grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div>
+        <h2 className="text-3xl font-bold text-center pb-4 bg-fuchsia-200 dark:bg-gray-900 dark: dark:text-white">Task</h2>
+      <section className=" p-4 bg-fuchsia-200 dark:bg-gray-900 dark:text-white grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         
         {loading ? (
           <p className="text-gray-500">Loading tasks...</p>
@@ -224,6 +225,7 @@ const Home = () => {
           </DndContext>
         )}
       </section>
+      </div>
     </div>
   );
 };

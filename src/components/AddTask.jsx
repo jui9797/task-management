@@ -14,17 +14,29 @@ const AddTask = () => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     if (!title.trim()) {
-      alert("Title is required!");
+      Swal.fire({
+        icon: "error",
+        title: "Title is required!",
+        text: "Please enter a valid title.",
+      });
       return;
     }
-    if(title.length > 50){
-      alert("Title cannot be longer than 50 characters!");
-      return;
+    if (title.length > 50) {
+      Swal.fire({
+        icon: "error",
+        title: "Title cannot be longer than 50 characters!",
+        text: "Please shorten the title.",
+      });
+      return; // Prevent form submission
     }
 
     // validate description
     if (description.length > 200) {
-        alert("Description cannot be longer than 200 characters!");
+      Swal.fire({
+        icon: "error",
+        title: "Description cannot be longer than 200 characters!",
+        text: "Please shorten the description.",
+      });
         return;
       }
 
@@ -89,7 +101,7 @@ const AddTask = () => {
           <label className="block font-medium">Description:</label>
           <textarea
             className="w-full p-2 border rounded"
-           
+           maxLength="200"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Enter task description (optional)"
