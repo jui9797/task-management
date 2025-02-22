@@ -17,6 +17,11 @@ const AddTask = () => {
       alert("Title is required!");
       return;
     }
+    if(title.length > 50){
+      alert("Title cannot be longer than 50 characters!");
+      return;
+    }
+
     // validate description
     if (description.length > 200) {
         alert("Description cannot be longer than 200 characters!");
