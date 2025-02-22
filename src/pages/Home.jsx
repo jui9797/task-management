@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import DarkLight from "../components/DarkLight";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { io } from "socket.io-client";
-import handleDelete from "../api/utilites";
+// import handleDelete from "../api/utilites";
 import {
   DndContext,
   closestCorners,
@@ -22,6 +22,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { TouchSensor } from "@dnd-kit/core";
+import axios from "axios";
 
 const socket = io("https://task-management-server-koc8.onrender.com", { transports: ["websocket"] });
 
@@ -115,6 +116,44 @@ const Home = () => {
     }
   };
 
+  // delete
+  const handleDelete = (id) => {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            try {
+                const res = await axiosPublic.delete(`/tasks/${id}`);
+
+                if (res.data.deletedCount > 0) {
+                    // Update tasks state
+                    setTasks((prevTasks) => prevTasks.filter(task => task._id !== id));
+
+                    // Emit event using the correct socket instance
+                    socket.emit("newTask");
+
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `Task has been deleted`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            } catch (error) {
+                console.error("Error deleting task:", error);
+            }
+        }
+    });
+};
+
+
   return (
     <div className=" h-screen">
       <div className="flex justify-between items-center w-11/12 mx-auto p-4">
@@ -176,7 +215,7 @@ const Home = () => {
                   </h4>
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     {groupedTasks[category].map((task, index) => (
-                      <TaskCard key={task._id} task={task} />
+                      <TaskCard key={task._id} task={task} handleDelete={handleDelete}/>
                     ))}
                   </div>
                 </div>
@@ -190,7 +229,7 @@ const Home = () => {
 };
 
 // Task Card Component (Draggable)
-const TaskCard = ({ task }) => {
+const TaskCard = ({ task, handleDelete  }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: task._id });
 
@@ -215,7 +254,7 @@ const TaskCard = ({ task }) => {
       <Link to={`/update/${task._id}`} className="btn mr-4 bg-amber-300">
         Update
       </Link>
-      <button onClick={() => handleDelete(task._id)} className="btn bg-red-400">
+      <button onMouseDown={() => handleDelete(task._id)} className="btn bg-red-400">
         Delete
       </button>
     </div>
