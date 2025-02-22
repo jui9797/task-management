@@ -23,7 +23,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { TouchSensor } from "@dnd-kit/core";
 
-const socket = io("http://localhost:5000", { transports: ["websocket"] });
+const socket = io("https://task-management-server-koc8.onrender.com", { transports: ["websocket"] });
 
 const Home = () => {
   const { logOut } = useContext(AuthContext);
@@ -116,7 +116,7 @@ const Home = () => {
   };
 
   return (
-    <div className="my-4 h-screen">
+    <div className=" h-screen">
       <div className="flex justify-between items-center w-11/12 mx-auto p-4">
         <h2 className="text-xl lg:text-2xl font-bold dark:text-pink-600">
           TaskZen

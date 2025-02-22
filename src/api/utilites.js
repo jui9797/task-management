@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import Swal from "sweetalert2";
 
 // Create a socket instance
-const socket = io("http://localhost:5000", { transports: ["websocket"] });
+const socket = io("https://task-management-server-koc8.onrender.com", { transports: ["websocket"] });
 
 const handleDelete = (id) => {
     Swal.fire({
@@ -17,7 +17,7 @@ const handleDelete = (id) => {
     }).then(async (result) => {
         if (result.isConfirmed) {
             try {
-                const res = await axios.delete(`http://localhost:5000/tasks/${id}`);
+                const res = await axios.delete(`https://task-management-server-koc8.onrender.com/tasks/${id}`);
 
                 if (res.data.deletedCount > 0) {
                     // Emit event using the correct socket instance
